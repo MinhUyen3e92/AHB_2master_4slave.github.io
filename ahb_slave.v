@@ -16,24 +16,19 @@ module ahb_slave(
   output reg [31:0] hrdata
 );
 
-//----------------------------------------------------------------------
+
 // The definitions for intern registers for data storge
-//----------------------------------------------------------------------
 reg [31:0] mem [31:0];
 reg [4:0] waddr;
 reg [4:0] raddr;
 
-//----------------------------------------------------------------------
 // The definition for state machine
-//----------------------------------------------------------------------
 reg [1:0] state;
 reg [1:0] next_state;
 localparam idle = 2'b00,s1 = 2'b01,s2 = 2'b10,s3 = 2'b11;
 
 
-//----------------------------------------------------------------------
 // The definition for burst feature
-//----------------------------------------------------------------------
 reg single_flag;
 reg incr_flag;
 reg wrap4_flag;
@@ -44,15 +39,12 @@ reg wrap16_flag;
 reg incr16_flag;
 
 
-
-
-//----------------------------------------------------------------------
 // The state machine
-//----------------------------------------------------------------------
 
 always @(posedge hclk, negedge hresetn) begin
   if(!hresetn) begin
     state <= idle;
+    hresp <= 1'b0;
   end
   else begin
     state <= next_state;
@@ -70,6 +62,7 @@ always @(*) begin
       incr8_flag = 1'b0;
       wrap16_flag = 1'b0;
       incr16_flag = 1'b0;
+      hresp = 1'b0;
       if(hsel == 1'b1) begin
         next_state = s1;
       end

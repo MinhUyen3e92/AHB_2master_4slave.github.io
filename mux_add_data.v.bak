@@ -1,0 +1,33 @@
+module mux_add_data(
+    input addr_m1,
+    input addr_m2,
+    input data_m1,
+    input data_m2,
+    input sel,
+
+    output haddr,
+    output hdata
+    
+);
+
+
+always @(*) begin
+    case(sel)
+    1'b0: begin
+        haddr = addr_m1;
+        hdata = data_m1;
+    end
+    1'b1:begin
+        haddr = addr_m2;
+        hdata = data_m2;
+    end
+    default: begin
+        haddr = 32'b0;
+        hdata = 32'b0;
+    end
+
+    endcase
+
+end
+
+endmodule

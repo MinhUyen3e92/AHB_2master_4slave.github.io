@@ -29,7 +29,7 @@ ahb_top dut(
     .wr_1(wr_1),
     .slave_sel_1(slave_sel_1),
 
-    .enable_2(enable_2);
+    .enable_2(enable_2),
     .dina_2(dina_2),
     .dinb_2(dinb_2),
     .addr_2(addr_2),
@@ -39,7 +39,7 @@ ahb_top dut(
     .dout(dout)
 
 );
-
+always #5 hclk = ~hclk;
 initial begin
   hclk = 0;
   hresetn = 1;
@@ -52,18 +52,18 @@ initial begin
 
   enable_2 = 1'b0;
   dina_2 = 32'd0;
-  dinb_@ = 32'd0;
+  dinb_2 = 32'd0;
   addr_2 = 32'd0;
   wr_2 = 1'b0;
   slave_sel_2 = 2'b00;
   #10 hresetn = 0;
   #10 hresetn = 1;
 
-   write_m1(2'b00,32'd1,32'd1,32'd2);
-   write_m1(2'b00,32'd1,32'd1,32'd2);
+   write_m1(2'b01,32'd9,32'd8,32'd7);
+   write_m2(2'b10,32'd1,32'd1,32'd2);
    fork begin
-    write_m1(2'b00,32'd1,32'd1,32'd2);
-    write_m1(2'b00,32'd1,32'd1,32'd2);
+    write_m1(2'b10,32'd8,32'd1,32'd5);
+    write_m2(2'b01,32'd6,32'd1,32'd4);
    end
    join
 

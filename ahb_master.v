@@ -34,6 +34,7 @@ parameter idle = 2'b00, s1 = 2'b01, s2 = 2'b10, s3 = 2'b11;
 always @(posedge hclk, negedge hresetn) begin
   if(!hresetn) begin
     state <= idle;
+    requir <= 1'b0;
   end
   else begin
     state <= next_state;
@@ -41,22 +42,27 @@ always @(posedge hclk, negedge hresetn) begin
 end
 
 
+
 always @(*) begin
   case(state)
     idle: begin
       if(enable == 1'b1) begin
         next_state = s1;
+        requir = 1'b1;
       end
       else begin
         next_state = idle;
+        requir = 1'b0;
       end
     end
     s1: begin
       if(wr == 1'b1) begin
         next_state = s2;
+        requir = 1'b1;
       end
       else begin
         next_state = s3;
+        requir = 1'b0;
       end
     end
     s2: begin

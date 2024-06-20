@@ -1,13 +1,14 @@
 module ahb_top(
   input hclk,
   input hresetn,
-  input enable,
+  input enable_1,
   input [31:0] dina_1,
   input [31:0] dinb_1,
   input [31:0] addr_1,
   input wr_1,
   input [1:0] slave_sel_1,
 
+  input enable_2,
   input [31:0] dina_2,
   input [31:0] dinb_2,
   input [31:0] addr_2,
@@ -66,7 +67,6 @@ wire gnt_2;
 wire requir_1;
 wire requir_2;
  
-
  // mux address and data
  wire [31:0] addr_m1;
  wire [31:0] addr_m2;
@@ -106,7 +106,7 @@ mux_add_data mux_m12(
 ahb_master master_1(
   .hclk(hclk),
   .hresetn(hresetn),
-  .enable(enable),
+  .enable(enable_1),
   .dina(dina_1),
   .dinb(dinb_1),
   .addr(addr_1),
@@ -133,7 +133,7 @@ ahb_master master_1(
 ahb_master master_2(
   .hclk(hclk),
   .hresetn(hresetn),
-  .enable(enable),
+  .enable(enable_2),
   .dina(dina_2),
   .dinb(dinb_2),
   .addr(addr_2),

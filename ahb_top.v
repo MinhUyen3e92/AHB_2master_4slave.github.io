@@ -1,6 +1,11 @@
 //check change from remote
+<<<<<<< HEAD
 //change repo
 //.. on remote
+=======
+//change on local
+//..
+>>>>>>> done
 module ahb_top(
   input hclk,
   input hresetn,
